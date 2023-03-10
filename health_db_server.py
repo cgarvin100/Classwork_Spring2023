@@ -89,5 +89,26 @@ def validate_input_data_add_test(in_data):
     return True
 
 
+@app.route("/get_results/<patient_id>", methods=["GET"])
+def get_results_driver(patient_id):
+    validation = validate_patient_id(patient_id)
+    if validation is not True:
+        return validation, 400
+    patient = db[int(patient_id)]
+    return patient['tests'], 200
+
+
+def validate_patient_id(patient_id):
+    try:
+        patient_id = int(patient_id)
+    except ValueError:
+        return "Input patient ID is not an integer"
+
+    if patient_id not in db:
+        return "Patient {} not in database".format(patient_id)
+
+    return True
+
+
 if __name__ == '__main__':
     app.run()
