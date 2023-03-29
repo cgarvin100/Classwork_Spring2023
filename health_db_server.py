@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from pymodm import connect
 
 db = {}
 
@@ -110,5 +111,12 @@ def validate_patient_id(patient_id):
     return True
 
 
+def init_server():
+    
+    return
+
+
+
 if __name__ == '__main__':
+    init_server()
     app.run()
